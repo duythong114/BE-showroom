@@ -1,0 +1,32 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "jwt_nodejs",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "query": {
+      "raw": true
+    },
+    "timezone": "+07:00",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "idle": 10000
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

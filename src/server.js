@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import viewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';
+import apiRouter from './routes/api';
 import methodOverride from 'method-override';
 import morgan from 'morgan';
 
@@ -41,6 +42,8 @@ viewEngine(app)
 
 // init routes
 initWebRoutes(app)
+// api routes
+apiRouter(app)
 
 // HTTP logger 
 app.use(morgan('combined'))
