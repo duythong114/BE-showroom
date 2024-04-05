@@ -14,7 +14,7 @@ let createNewUserService = (data) => {
                 address: data.address,
                 phoneNumber: data.phoneNumber,
                 gender: data.gender,
-                roleId: data.roleId,
+                groupId: data.groupId,
             })
             resolve()
         } catch (error) {
@@ -39,6 +39,25 @@ let hashUserPassword = (password) => {
 let getAllUserService = () => {
     return new Promise(async (resolve, reject) => {
         try {
+            // test join table
+            // let newUser = await db.User.findOne({
+            //     where: { id: 12 },
+            //     attributes: ['id', 'firstName', 'lastName'],
+            //     include: { model: db.Group, attributes: ['id', 'name', 'description'] },
+            //     raw: true,
+            //     nest: true
+            // })
+
+            // let roles = await db.Role.findAll({
+            //     attributes: ['id', 'url', 'description'],
+            //     include: { model: db.Group, where: { id: 3 }, attributes: ['id', 'name', 'description'] },
+            //     raw: true,
+            //     nest: true
+            // })
+
+            // console.log("check new user:", newUser)
+            // console.log("check roles:", roles)
+
             let users = await db.User.findAll()
             resolve(users)
         } catch (error) {

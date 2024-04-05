@@ -143,7 +143,7 @@ let createUser = (data) => {
                     address: data.address,
                     phoneNumber: data.phoneNumber,
                     gender: data.gender,
-                    roleId: data.roleId,
+                    groupId: data.groupId,
                 })
                 resolve({
                     errorCode: 0,
