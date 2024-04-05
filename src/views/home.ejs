@@ -76,11 +76,11 @@
                             <%= dataTable[i].address %>
                         </td>
                         <td>
-                            <a href="/edit-user?id=<%= dataTable[i].id %>">
-                                <button class="btn-edit btn btn-primary">Edit</button>
+                            <a class="btn-edit btn btn-warning" href="/edit-user?id=<%= dataTable[i].id %>">
+                                Edit
                             </a>
-                            <a href="/delete-user?id=<%= dataTable[i].id %>">
-                                <button class="btn-delete btn btn-primary">Delete</button>
+                            <a class="btn-delete btn btn-danger" href="/delete-user?id=<%= dataTable[i].id %>">
+                                Delete
                             </a>
                         </td>
                     </tr>

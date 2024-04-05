@@ -5,10 +5,14 @@ import initWebRoutes from './routes/web';
 import apiRouter from './routes/api';
 import methodOverride from 'method-override';
 import morgan from 'morgan';
+import connectDB from './config/connectDB'
 
 require('dotenv').config();
 
 let app = express();
+
+// check connect database
+connectDB();
 
 // FIX CORS
 app.use(function (req, res, next) {
