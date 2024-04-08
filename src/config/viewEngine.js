@@ -8,4 +8,3 @@ let configViewEngine = (app) => {
 }
 
 export default configViewEngine;
-// module.exports = configViewEngine;
