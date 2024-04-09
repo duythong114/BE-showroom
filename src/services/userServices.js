@@ -216,11 +216,10 @@ let updateUser = (data) => {
 
             let newUser = await db.User.findOne({
                 where: { id: data.id },
-                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber']
+                attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber']
             })
 
             if (newUser) {
-                newUser.email = data.email
                 newUser.firstName = data.firstName
                 newUser.lastName = data.lastName
                 newUser.address = data.address
