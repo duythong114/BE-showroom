@@ -11,12 +11,12 @@ import configCors from './config/cors'
 require('dotenv').config();
 
 let app = express();
+// FIX CORS
+configCors(app)
 
 // check connect database
 connectDB();
 
-// FIX CORS
-configCors(app)
 
 // body-parser 
 app.use(bodyParser.json());
