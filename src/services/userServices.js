@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import db from '../models/index';
+import { raw } from "body-parser";
 
 let hashUserPassword = (password) => {
     const salt = bcrypt.genSaltSync(10);
@@ -37,16 +38,18 @@ let loginUser = (email, password) => {
             let isEmailExist = await checkUserEmail(email)
             if (isEmailExist) {
                 let user = await db.User.findOne({
-                    where: { email: email }
+                    where: { email: email },
+                    raw: true
                 })
                 if (user) {
                     let checkPassword = bcrypt.compareSync(password, user.password)
                     if (checkPassword) {
+                        delete user.password
                         resolve({
                             status: 200,
                             errorCode: 0,
                             errorMessage: 'Login successfully',
-                            data: ""
+                            data: user
                         })
                     } else {
                         resolve({
