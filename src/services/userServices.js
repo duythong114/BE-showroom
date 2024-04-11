@@ -39,6 +39,9 @@ let loginUser = (email, password) => {
             if (isEmailExist) {
                 let user = await db.User.findOne({
                     where: { email: email },
+                    attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                    include: { model: db.Group, attributes: ['name', 'description'] },
+                    nest: true,
                     raw: true
                 })
                 if (user) {
