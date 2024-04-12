@@ -253,6 +253,38 @@ let updateUser = (data) => {
     })
 }
 
+let paginationUserList = (page, limit) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let offSet = (page - 1) * limit
+
+            const { count, rows } = await db.User.findAndCountAll({
+                offset: offSet,
+                limit: limit,
+            });
+
+            if (count && rows) {
+                let totalPages = Math.ceil(count / limit)
+
+                let data = {
+                    totalPages: totalPages,
+                    users: rows
+                }
+
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: "fetch users with pagination successfully",
+                    data: data,
+                })
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     loginUser: loginUser,
     getAllUsers: getAllUsers,
@@ -260,5 +292,6 @@ module.exports = {
     createUser: createUser,
     deleteUser: deleteUser,
     updateUser: updateUser,
+    paginationUserList: paginationUserList,
 }
 

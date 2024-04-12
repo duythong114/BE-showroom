@@ -29,12 +29,26 @@ let handleLoginUser = async (req, res) => {
 
 let handleGetAllUsers = async (req, res) => {
     try {
-        let users = await userServices.getAllUsers()
-        return res.status(users.status).json({
-            errorCode: users.errorCode,
-            errorMessage: users.errorMessage,
-            data: users.data
-        })
+        // let page = req.query.page
+        // let limit = req.query.limit
+        let { page, limit } = req.query
+
+        // check if pagination 
+        if (page && limit) {
+            let paginationUsers = await userServices.paginationUserList(+page, +limit)
+            return res.status(paginationUsers.status).json({
+                errorCode: paginationUsers.errorCode,
+                errorMessage: paginationUsers.errorMessage,
+                data: paginationUsers.data
+            })
+        } else {
+            let users = await userServices.getAllUsers()
+            return res.status(users.status).json({
+                errorCode: users.errorCode,
+                errorMessage: users.errorMessage,
+                data: users.data
+            })
+        }
     } catch (error) {
         console.log(error)
         return res.status(500).json({
