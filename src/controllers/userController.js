@@ -60,7 +60,8 @@ let handleGetAllUsers = async (req, res) => {
 
 let handleGetUserById = async (req, res) => {
     try {
-        let id = req.query.id
+        let id = req.params.id
+
         if (id) {
             let user = await userServices.getUserById(id)
             return res.status(user.status).json({

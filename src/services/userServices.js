@@ -82,7 +82,7 @@ let getAllUsers = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let users = await db.User.findAll({
-                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber'],
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'groupId'],
                 raw: true
             })
             resolve({
@@ -102,7 +102,7 @@ let getUserById = (userId) => {
         try {
             let user = await db.User.findOne({
                 where: { id: userId },
-                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber'],
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
                 include: { model: db.Group, attributes: ['name', 'description'] },
                 nest: true,
                 raw: true
@@ -259,6 +259,10 @@ let paginationUserList = (page, limit) => {
             let offSet = (page - 1) * limit
 
             const { count, rows } = await db.User.findAndCountAll({
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                include: { model: db.Group, attributes: ['name', 'description'] },
+                nest: true,
+                raw: true,
                 offset: offSet,
                 limit: limit,
             });
