@@ -1,19 +1,8 @@
-import bcrypt from "bcryptjs";
 import db from '../models/index';
-import { raw } from "body-parser";
-
-let hashUserPassword = (password) => {
-    const salt = bcrypt.genSaltSync(10);
-
-    return new Promise(async (resolve, reject) => {
-        try {
-            var hashPassword = await bcrypt.hashSync(password, salt);
-            resolve(hashPassword)
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
+import bcrypt from "bcryptjs";
+import { createAccessToken, createRefreshToken } from './JWTServices'
+import hashUserPassword from './hashPasswordService';
+import getRoleByGroupId from './getRoleByGroupService'
 
 let checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
@@ -39,7 +28,7 @@ let loginUser = (email, password) => {
             if (isEmailExist) {
                 let user = await db.User.findOne({
                     where: { email: email },
-                    attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                    attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
                     include: { model: db.Group, attributes: ['name', 'description'] },
                     nest: true,
                     raw: true
@@ -48,11 +37,34 @@ let loginUser = (email, password) => {
                     let checkPassword = bcrypt.compareSync(password, user.password)
                     if (checkPassword) {
                         delete user.password
+
+                        let groupId = user.groupId
+                        let roles = await getRoleByGroupId(groupId)
+
+                        let accessTokenPayload = {
+                            user: user,
+                            roles: roles
+                        }
+
+                        let accessToken = await createAccessToken(accessTokenPayload)
+
+                        let refreshTokenPayload = {
+                            userId: user.id
+                        }
+
+                        let refreshToken = await createRefreshToken(refreshTokenPayload)
+
+                        let data = {
+                            user: user,
+                            accessToken: accessToken,
+                            refreshToken: refreshToken
+                        }
+
                         resolve({
                             status: 200,
                             errorCode: 0,
                             errorMessage: 'Login successfully',
-                            data: user
+                            data: data
                         })
                     } else {
                         resolve({
@@ -72,6 +84,55 @@ let loginUser = (email, password) => {
                 })
             }
 
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+let registerUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let arrInput = [data.email, data.password, data.firstName, data.lastName, data.address, data.phoneNumber, data.gender, data.groupId]
+            let arrInputName = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId']
+            for (let i = 0; i < arrInput.length; i++) {
+                if (!arrInput[i]) {
+                    resolve({
+                        status: 500,
+                        errorCode: 2,
+                        errorMessage: `Missing parameter ${arrInputName[i]}`,
+                        data: ""
+                    })
+                }
+            }
+
+            let isEmailExist = await checkUserEmail(data.email)
+            if (!isEmailExist) {
+                let hashPassword = await hashUserPassword(data.password)
+                await db.User.create({
+                    email: data.email,
+                    password: hashPassword,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    address: data.address,
+                    phoneNumber: data.phoneNumber,
+                    gender: data.gender,
+                    groupId: data.groupId,
+                })
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: 'Create a new user successfully',
+                    data: ""
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: 'Your email is already existed, Pls try another email',
+                    data: ""
+                })
+            }
         } catch (error) {
             reject(error)
         }
@@ -291,6 +352,7 @@ let paginationUserList = (page, limit) => {
 
 module.exports = {
     loginUser: loginUser,
+    registerUser: registerUser,
     getAllUsers: getAllUsers,
     getUserById: getUserById,
     createUser: createUser,

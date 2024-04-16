@@ -6,6 +6,10 @@ let handleLoginUser = async (req, res) => {
         let password = req.body.password
         if (email && password) {
             let response = await userServices.loginUser(email, password)
+
+            res.cookie("accessToken", response.data.accessToken, { httpOnly: true });
+            res.cookie("refreshToken", response.data.refreshToken, { httpOnly: true });
+
             return res.status(response.status).json({
                 errorCode: response.errorCode,
                 errorMessage: response.errorMessage,
@@ -27,10 +31,44 @@ let handleLoginUser = async (req, res) => {
     }
 }
 
+let handleRegisterUser = async (req, res) => {
+    try {
+        let data = {
+            email: req.body.email,
+            password: req.body.password,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            gender: req.body.gender,
+            groupId: req.body.groupId
+        }
+
+        if (data) {
+            let response = await userServices.registerUser(data)
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 1,
+                errorMessage: "Missing required parameter",
+                data: ""
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
 let handleGetAllUsers = async (req, res) => {
     try {
-        // let page = req.query.page
-        // let limit = req.query.limit
         let { page, limit } = req.query
 
         // check if pagination 
@@ -42,11 +80,16 @@ let handleGetAllUsers = async (req, res) => {
                 data: paginationUsers.data
             })
         } else {
-            let users = await userServices.getAllUsers()
-            return res.status(users.status).json({
-                errorCode: users.errorCode,
-                errorMessage: users.errorMessage,
-                data: users.data
+            // let users = await userServices.getAllUsers()
+            // return res.status(users.status).json({
+            //     errorCode: users.errorCode,
+            //     errorMessage: users.errorMessage,
+            //     data: users.data
+            // })
+            return res.status(500).json({
+                errorCode: 1,
+                errorMessage: "Missing required parameters",
+                data: ""
             })
         }
     } catch (error) {
@@ -60,7 +103,8 @@ let handleGetAllUsers = async (req, res) => {
 
 let handleGetUserById = async (req, res) => {
     try {
-        let id = req.params.id
+        // let id = req.params.id
+        let id = req.query.id
 
         if (id) {
             let user = await userServices.getUserById(id)
@@ -167,6 +211,7 @@ let handleUpdateUser = async (req, res) => {
 
 module.exports = {
     handleLoginUser: handleLoginUser,
+    handleRegisterUser: handleRegisterUser,
     handleGetAllUsers: handleGetAllUsers,
     handleGetUserById: handleGetUserById,
     handleCreateUser: handleCreateUser,

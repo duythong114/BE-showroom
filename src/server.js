@@ -3,30 +3,30 @@ import bodyParser from 'body-parser';
 import viewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';
 import apiRouter from './routes/api';
-import methodOverride from 'method-override';
 import morgan from 'morgan';
 import connectDB from './config/connectDB'
 import configCors from './config/cors'
+import cookieParser from 'cookie-parser'
 
 require('dotenv').config();
 
 let app = express();
-// FIX CORS
-configCors(app)
 
-// check connect database
-connectDB();
-
+// view engine
+viewEngine(app)
 
 // body-parser 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// express method-override
-app.use(methodOverride('_method'))
+// cookie-parser
+app.use(cookieParser())
 
-// view engine
-viewEngine(app)
+// FIX CORS
+configCors(app)
+
+// check connect database
+connectDB();
 
 // init routes
 initWebRoutes(app)
