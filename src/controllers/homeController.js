@@ -37,7 +37,6 @@ let getEditUserPage = async (req, res) => {
 
 let editUser = async (req, res) => {
     let data = req.body
-    console.log("check data in controller:", data)
     await homeServices.editUserService(data)
     return res.redirect('/')
 }

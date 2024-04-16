@@ -1,7 +1,7 @@
 const nonSecurePaths = ['/', '/user/login-user', '/user/register']
 
 const checkAuthorization = (req, res, next) => {
-    if (nonSecurePaths.includes(req.path)) return next()
+    if (nonSecurePaths.includes(req.path) || req.path === '/user/get-user-refresh') return next()
 
     if (req.user) {
         let currentPath = req.path
@@ -18,7 +18,7 @@ const checkAuthorization = (req, res, next) => {
         }
     } else {
         return res.status(400).json({
-            errorCode: 1,
+            errorCode: 2,
             errorMessage: 'PLease login to continue',
             data: ''
         })

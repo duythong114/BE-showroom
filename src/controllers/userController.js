@@ -209,6 +209,31 @@ let handleUpdateUser = async (req, res) => {
     }
 }
 
+let handleGetUserRefresh = async (req, res) => {
+    try {
+        if (req.user) {
+            let user = req.user.user
+            return res.status(200).json({
+                errorCode: 0,
+                errorMessage: 'refresh user successfully',
+                data: user
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 2,
+                errorMessage: 'Please login to continue',
+                data: ""
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
 module.exports = {
     handleLoginUser: handleLoginUser,
     handleRegisterUser: handleRegisterUser,
@@ -217,4 +242,5 @@ module.exports = {
     handleCreateUser: handleCreateUser,
     handleDeleteUser: handleDeleteUser,
     handleUpdateUser: handleUpdateUser,
+    handleGetUserRefresh: handleGetUserRefresh,
 }

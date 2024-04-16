@@ -9,6 +9,7 @@ const apiRouter = (app) => {
     // user api
     router.all('*', checkAccessToken, checkAuthorization,)
 
+    router.get('/user/get-user-refresh', userController.handleGetUserRefresh)
     router.post('/user/login-user', userController.handleLoginUser)
     router.post('/user/register', userController.handleRegisterUser)
     router.get('/user/get-all-users', userController.handleGetAllUsers)
