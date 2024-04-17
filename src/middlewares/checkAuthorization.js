@@ -1,4 +1,4 @@
-const nonSecurePaths = ['/', '/user/login-user', '/user/register']
+const nonSecurePaths = ['/user/logout-user', '/user/login-user', '/user/register']
 
 const checkAuthorization = (req, res, next) => {
     if (nonSecurePaths.includes(req.path) || req.path === '/user/get-user-refresh') return next()

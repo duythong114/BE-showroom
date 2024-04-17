@@ -1,4 +1,5 @@
 import userServices from '../services/userServices';
+require('dotenv').config();
 
 let handleLoginUser = async (req, res) => {
     try {
@@ -7,8 +8,8 @@ let handleLoginUser = async (req, res) => {
         if (email && password) {
             let response = await userServices.loginUser(email, password)
 
-            res.cookie("accessToken", response.data.accessToken, { httpOnly: true });
-            res.cookie("refreshToken", response.data.refreshToken, { httpOnly: true });
+            res.cookie("accessToken", response.data.accessToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
+            res.cookie("refreshToken", response.data.refreshToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
 
             return res.status(response.status).json({
                 errorCode: response.errorCode,
@@ -216,7 +217,10 @@ let handleGetUserRefresh = async (req, res) => {
             return res.status(200).json({
                 errorCode: 0,
                 errorMessage: 'refresh user successfully',
-                data: user
+                data: {
+                    user: user,
+                    isAuthenticated: true
+                }
             })
         } else {
             return res.status(500).json({
@@ -225,6 +229,40 @@ let handleGetUserRefresh = async (req, res) => {
                 data: ""
             })
         }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
+let handleLogoutUser = async (req, res) => {
+    try {
+        setTimeout(() => {
+
+
+            let cookies = req.cookies
+            if (cookies && cookies.accessToken && cookies.refreshToken) {
+                res.clearCookie("accessToken");
+                res.clearCookie("refreshToken");
+                return res.status(200).json({
+                    errorCode: 0,
+                    errorMessage: "Logout successfully",
+                    data: ""
+                })
+            } else {
+                return res.status(500).json({
+                    errorCode: 1,
+                    errorMessage: `Don't have user to logout`,
+                    data: ""
+                })
+            }
+
+        }, 5000)
+
+
     } catch (error) {
         console.log(error)
         return res.status(500).json({
@@ -243,4 +281,5 @@ module.exports = {
     handleDeleteUser: handleDeleteUser,
     handleUpdateUser: handleUpdateUser,
     handleGetUserRefresh: handleGetUserRefresh,
+    handleLogoutUser: handleLogoutUser,
 }

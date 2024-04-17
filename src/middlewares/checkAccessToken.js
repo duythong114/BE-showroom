@@ -1,6 +1,6 @@
 import { verifyAccessToken } from '../services/JWTServices'
 
-const nonSecurePaths = ['/', '/user/login-user', '/user/register']
+const nonSecurePaths = ['/user/logout-user', '/user/login-user', '/user/register']
 
 const checkAccessToken = async (req, res, next) => {
     if (nonSecurePaths.includes(req.path)) return next()
