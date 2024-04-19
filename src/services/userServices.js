@@ -38,22 +38,24 @@ let loginUser = (email, password) => {
                     if (checkPassword) {
                         delete user.password
 
+                        // get roles of user by group
                         let groupId = user.groupId
                         let roles = await getRoleByGroupId(groupId)
 
+                        // access token
                         let accessTokenPayload = {
-                            user: user,
+                            userId: user.id,
                             roles: roles
                         }
-
                         let accessToken = await createAccessToken(accessTokenPayload)
 
+                        // refresh token
                         let refreshTokenPayload = {
                             userId: user.id
                         }
-
                         let refreshToken = await createRefreshToken(refreshTokenPayload)
 
+                        // data return to client
                         let data = {
                             user: user,
                             accessToken: accessToken,
@@ -350,6 +352,40 @@ let paginationUserList = (page, limit) => {
     })
 }
 
+let refreshUser = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { id: userId },
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+                include: { model: db.Group, attributes: ['name', 'description'] },
+                nest: true,
+                raw: true
+            })
+            if (user) {
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: 'Refresh user information successfully',
+                    data: {
+                        user: user,
+                        isAuthenticated: true
+                    }
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 2,
+                    errorMessage: 'User not found',
+                    data: ""
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     loginUser: loginUser,
     registerUser: registerUser,
@@ -359,5 +395,6 @@ module.exports = {
     deleteUser: deleteUser,
     updateUser: updateUser,
     paginationUserList: paginationUserList,
+    refreshUser: refreshUser,
 }
 

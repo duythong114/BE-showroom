@@ -213,14 +213,13 @@ let handleUpdateUser = async (req, res) => {
 let handleGetUserRefresh = async (req, res) => {
     try {
         if (req.user) {
-            let user = req.user.user
-            return res.status(200).json({
-                errorCode: 0,
-                errorMessage: 'refresh user successfully',
-                data: {
-                    user: user,
-                    isAuthenticated: true
-                }
+            let userId = req.user.userId
+            let response = await userServices.refreshUser(userId)
+
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
             })
         } else {
             return res.status(500).json({
@@ -240,29 +239,22 @@ let handleGetUserRefresh = async (req, res) => {
 
 let handleLogoutUser = async (req, res) => {
     try {
-        setTimeout(() => {
-
-
-            let cookies = req.cookies
-            if (cookies && cookies.accessToken && cookies.refreshToken) {
-                res.clearCookie("accessToken");
-                res.clearCookie("refreshToken");
-                return res.status(200).json({
-                    errorCode: 0,
-                    errorMessage: "Logout successfully",
-                    data: ""
-                })
-            } else {
-                return res.status(500).json({
-                    errorCode: 1,
-                    errorMessage: `Don't have user to logout`,
-                    data: ""
-                })
-            }
-
-        }, 5000)
-
-
+        let cookies = req.cookies
+        if (cookies && cookies.accessToken && cookies.refreshToken) {
+            res.clearCookie("accessToken");
+            res.clearCookie("refreshToken");
+            return res.status(200).json({
+                errorCode: 0,
+                errorMessage: "Logout successfully",
+                data: ""
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 1,
+                errorMessage: `Don't have user to logout`,
+                data: ""
+            })
+        }
     } catch (error) {
         console.log(error)
         return res.status(500).json({
