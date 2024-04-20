@@ -1,5 +1,5 @@
-import userServices from '../services/userServices';
 require('dotenv').config();
+import userServices from '../services/userServices';
 
 let handleLoginUser = async (req, res) => {
     try {
@@ -213,14 +213,23 @@ let handleUpdateUser = async (req, res) => {
 let handleGetUserRefresh = async (req, res) => {
     try {
         if (req.user) {
-            let userId = req.user.userId
-            let response = await userServices.refreshUser(userId)
+            let userId = req.user?.userId
 
-            return res.status(response.status).json({
-                errorCode: response.errorCode,
-                errorMessage: response.errorMessage,
-                data: response.data
-            })
+            if (userId) {
+                let response = await userServices.refreshUser(userId)
+
+                return res.status(response.status).json({
+                    errorCode: response.errorCode,
+                    errorMessage: response.errorMessage,
+                    data: response.data
+                })
+            } else {
+                return res.status(500).json({
+                    errorCode: 3,
+                    errorMessage: 'Please login to continue',
+                    data: ""
+                })
+            }
         } else {
             return res.status(500).json({
                 errorCode: 2,

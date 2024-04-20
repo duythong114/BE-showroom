@@ -1,3 +1,4 @@
+require('dotenv').config();
 import db from '../models/index';
 import bcrypt from "bcryptjs";
 import { createAccessToken, createRefreshToken } from './JWTServices'
@@ -42,18 +43,24 @@ let loginUser = (email, password) => {
                         let groupId = user.groupId
                         let roles = await getRoleByGroupId(groupId)
 
-                        // access token
+                        // create access token
                         let accessTokenPayload = {
                             userId: user.id,
                             roles: roles
                         }
-                        let accessToken = await createAccessToken(accessTokenPayload)
+                        let accessTokenSignature = process.env.ACCESS_TOKEN_SIGNATURE
+                        let accessTokenExpireTime = process.env.ACCESS_TOKEN_EXPIRE_TIME
 
-                        // refresh token
+                        let accessToken = await createAccessToken(accessTokenPayload, accessTokenSignature, accessTokenExpireTime)
+
+                        // create refresh token
                         let refreshTokenPayload = {
                             userId: user.id
                         }
-                        let refreshToken = await createRefreshToken(refreshTokenPayload)
+                        let refreshTokenSignature = process.env.REFRESH_TOKEN_SIGNATURE
+                        let refreshTokenExpireTime = process.env.REFRESH_TOKEN_EXPIRE_TIME
+
+                        let refreshToken = await createRefreshToken(refreshTokenPayload, refreshTokenSignature, refreshTokenExpireTime)
 
                         // data return to client
                         let data = {
@@ -375,7 +382,7 @@ let refreshUser = (userId) => {
             } else {
                 resolve({
                     status: 500,
-                    errorCode: 2,
+                    errorCode: 4,
                     errorMessage: 'User not found',
                     data: ""
                 })

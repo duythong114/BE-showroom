@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import viewEngine from './config/viewEngine';
@@ -7,8 +8,6 @@ import morgan from 'morgan';
 import connectDB from './config/connectDB'
 import configCors from './config/cors'
 import cookieParser from 'cookie-parser'
-
-require('dotenv').config();
 
 let app = express();
 
