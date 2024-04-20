@@ -251,17 +251,30 @@ let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
-                where: { id: userId }
+                where: { id: userId },
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                include: { model: db.Group, attributes: ['name', 'description'] },
+                nest: true,
             })
             if (user) {
-                user.destroy()
+                let groupName = user?.Group?.name
+                if (groupName === 'manager') {
+                    resolve({
+                        status: 500,
+                        errorCode: 3,
+                        errorMessage: `Can't delete manager user`,
+                        data: ""
+                    })
+                } else {
+                    user.destroy()
 
-                resolve({
-                    status: 200,
-                    errorCode: 0,
-                    errorMessage: 'User deleted successfully',
-                    data: ""
-                })
+                    resolve({
+                        status: 200,
+                        errorCode: 0,
+                        errorMessage: 'User deleted successfully',
+                        data: ""
+                    })
+                }
             } else {
                 resolve({
                     status: 500,

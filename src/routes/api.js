@@ -16,7 +16,7 @@ const apiRouter = (app) => {
     router.get('/user/get-all-users', userController.handleGetAllUsers)
     router.get('/user/get-one-user', userController.handleGetUserById)
     router.post('/user/create-user', userController.handleCreateUser)
-    router.delete('/user/delete-user', userController.handleDeleteUser)
+    router.get('/user/delete-user', userController.handleDeleteUser)
     router.put('/user/update-user', userController.handleUpdateUser)
 
     return app.use('/api', router)

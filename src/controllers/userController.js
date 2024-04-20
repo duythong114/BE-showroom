@@ -168,9 +168,10 @@ let handleCreateUser = async (req, res) => {
 
 let handleDeleteUser = async (req, res) => {
     try {
-        let id = req.query.id
-        if (id) {
-            let response = await userServices.deleteUser(id)
+        let userId = req.query.userId
+
+        if (userId) {
+            let response = await userServices.deleteUser(userId)
             return res.status(response.status).json({
                 errorCode: response.errorCode,
                 errorMessage: response.errorMessage,
