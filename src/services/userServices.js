@@ -172,7 +172,7 @@ let getUserById = (userId) => {
         try {
             let user = await db.User.findOne({
                 where: { id: userId },
-                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
                 include: { model: db.Group, attributes: ['name', 'description'] },
                 nest: true,
                 raw: true
@@ -297,7 +297,7 @@ let updateUser = (data) => {
             if (!data.id) {
                 resolve({
                     status: 500,
-                    errorCode: 1,
+                    errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
                 })
@@ -305,27 +305,41 @@ let updateUser = (data) => {
 
             let newUser = await db.User.findOne({
                 where: { id: data.id },
-                attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber']
+                attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+                include: { model: db.Group, attributes: ['name', 'description'] },
+                nest: true,
             })
 
             if (newUser) {
-                newUser.firstName = data.firstName
-                newUser.lastName = data.lastName
-                newUser.address = data.address
-                newUser.phoneNumber = data.phoneNumber
+                let groupName = newUser?.Group?.name
+                if (groupName === 'manager') {
+                    resolve({
+                        status: 500,
+                        errorCode: 5,
+                        errorMessage: `Can't update manager user`,
+                        data: ""
+                    })
+                } else {
+                    newUser.firstName = data.firstName
+                    newUser.lastName = data.lastName
+                    newUser.address = data.address
+                    newUser.phoneNumber = data.phoneNumber
+                    newUser.gender = data.gender
+                    newUser.groupId = data.groupId
 
-                await newUser.save()
+                    await newUser.save()
 
-                resolve({
-                    status: 200,
-                    errorCode: 0,
-                    errorMessage: 'Update user successfully',
-                    data: newUser
-                })
+                    resolve({
+                        status: 200,
+                        errorCode: 0,
+                        errorMessage: 'Update user successfully',
+                        data: ""
+                    })
+                }
             } else {
                 resolve({
                     status: 500,
-                    errorCode: 2,
+                    errorCode: 4,
                     errorMessage: 'User not found',
                     data: ""
                 })
@@ -342,7 +356,7 @@ let paginationUserList = (page, limit) => {
             let offSet = (page - 1) * limit
 
             const { count, rows } = await db.User.findAndCountAll({
-                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender'],
+                attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
                 include: { model: db.Group, attributes: ['name', 'description'] },
                 nest: true,
                 raw: true,

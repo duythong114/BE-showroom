@@ -195,13 +195,31 @@ let handleDeleteUser = async (req, res) => {
 
 let handleUpdateUser = async (req, res) => {
     try {
-        let data = req.body
-        let response = await userServices.updateUser(data)
-        return res.status(response.status).json({
-            errorCode: response.errorCode,
-            errorMessage: response.errorMessage,
-            data: response.data
-        })
+        let data = {
+            id: req.body.id,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            gender: req.body.gender,
+            groupId: req.body.groupId
+        }
+
+        console.log("check data:", data)
+        if (data) {
+            let response = await userServices.updateUser(data)
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 1,
+                errorMessage: "Missing required parameter",
+                data: ""
+            })
+        }
     } catch (error) {
         console.log(error)
         return res.status(500).json({

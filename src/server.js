@@ -6,10 +6,18 @@ import initWebRoutes from './routes/web';
 import apiRouter from './routes/api';
 import morgan from 'morgan';
 import connectDB from './config/connectDB'
-import configCors from './config/cors'
 import cookieParser from 'cookie-parser'
+import cors from "cors"
 
 let app = express();
+
+// FIX CORS
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+    })
+)
 
 // view engine
 viewEngine(app)
@@ -20,9 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // cookie-parser
 app.use(cookieParser())
-
-// FIX CORS
-configCors(app)
 
 // check connect database
 connectDB();
