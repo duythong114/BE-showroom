@@ -102,19 +102,6 @@ let loginUser = (email, password) => {
 let registerUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let arrInput = [data.email, data.password, data.firstName, data.lastName, data.address, data.phoneNumber, data.gender, data.groupId]
-            let arrInputName = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId']
-            for (let i = 0; i < arrInput.length; i++) {
-                if (!arrInput[i]) {
-                    resolve({
-                        status: 500,
-                        errorCode: 2,
-                        errorMessage: `Missing parameter ${arrInputName[i]}`,
-                        data: ""
-                    })
-                }
-            }
-
             let isEmailExist = await checkUserEmail(data.email)
             if (!isEmailExist) {
                 let hashPassword = await hashUserPassword(data.password)
@@ -137,7 +124,7 @@ let registerUser = (data) => {
             } else {
                 resolve({
                     status: 500,
-                    errorCode: 3,
+                    errorCode: 4,
                     errorMessage: 'Your email is already existed, Pls try another email',
                     data: ""
                 })

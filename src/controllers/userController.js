@@ -46,6 +46,18 @@ let handleRegisterUser = async (req, res) => {
         }
 
         if (data) {
+            let arrInput = [data.email, data.password, data.firstName, data.lastName, data.address, data.phoneNumber, data.gender, data.groupId]
+            let arrInputName = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId']
+            for (let i = 0; i < arrInput.length; i++) {
+                if (!arrInput[i]) {
+                    return res.status(500).json({
+                        errorCode: 3,
+                        errorMessage: `Missing parameter ${arrInputName[i]}`,
+                        data: ""
+                    })
+                }
+            }
+
             let response = await userServices.registerUser(data)
             return res.status(response.status).json({
                 errorCode: response.errorCode,
@@ -54,7 +66,7 @@ let handleRegisterUser = async (req, res) => {
             })
         } else {
             return res.status(500).json({
-                errorCode: 1,
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -205,7 +217,6 @@ let handleUpdateUser = async (req, res) => {
             groupId: req.body.groupId
         }
 
-        console.log("check data:", data)
         if (data) {
             let response = await userServices.updateUser(data)
             return res.status(response.status).json({
