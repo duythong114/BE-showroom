@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      color: {
+      model: {
         type: Sequelize.STRING
       },
       description: {
@@ -19,9 +19,6 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING
-      },
-      userId: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

@@ -8,17 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      paymentMethod: {
-        type: Sequelize.STRING
+      carId: {
+        type: Sequelize.INTEGER
       },
-      amount: {
-        type: Sequelize.STRING
-      },
-      paymentTime: {
-        type: Sequelize.TIME
-      },
-      paymentDate: {
-        type: Sequelize.DATE
+      userId: {
+        type: Sequelize.INTEGER
       },
       description: {
         type: Sequelize.STRING
