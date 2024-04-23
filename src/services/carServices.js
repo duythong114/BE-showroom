@@ -128,6 +128,8 @@ const updateCar = (data) => {
             })
 
             if (newCar) {
+                newCar.name = data.name
+                newCar.model = data.model
                 newCar.description = data.description
                 newCar.image = data.image
 

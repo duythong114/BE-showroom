@@ -1,3 +1,4 @@
+import { name } from 'ejs'
 import carServices from '../services/carServices'
 
 const handleGetAllCars = async (req, res) => {
@@ -73,7 +74,7 @@ const handleCreateNewCar = async (req, res) => {
 
 const handleDeleteCar = async (req, res) => {
     try {
-        let carId = req.query.carId
+        let carId = req.body.carId
 
         if (carId) {
             let response = await carServices.deleteCar(carId)
@@ -102,6 +103,8 @@ const handleUpdateCar = async (req, res) => {
     try {
         let data = {
             id: req.body.id,
+            name: req.body.name,
+            model: req.body.model,
             description: req.body.description,
             image: req.body.image,
         }

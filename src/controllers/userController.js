@@ -180,7 +180,7 @@ let handleCreateUser = async (req, res) => {
 
 let handleDeleteUser = async (req, res) => {
     try {
-        let userId = req.query.userId
+        let userId = req.body.userId
 
         if (userId) {
             let response = await userServices.deleteUser(userId)

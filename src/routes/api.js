@@ -7,7 +7,7 @@ import carController from '../controllers/carController'
 const router = express.Router();
 
 const apiRouter = (app) => {
-    // router.all('*', checkAccessToken, checkAuthorization,)
+    router.all('*', checkAccessToken, checkAuthorization,)
 
     // user api
     router.get('/user/get-user-refresh', userController.handleGetUserRefresh)
@@ -17,14 +17,14 @@ const apiRouter = (app) => {
     router.get('/user/get-all-users', userController.handleGetAllUsers)
     router.get('/user/get-one-user', userController.handleGetUserById)
     router.post('/user/create-user', userController.handleCreateUser)
-    router.get('/user/delete-user', userController.handleDeleteUser)
-    router.post('/user/update-user', userController.handleUpdateUser)
+    router.delete('/user/delete-user', userController.handleDeleteUser)
+    router.put('/user/update-user', userController.handleUpdateUser)
 
     // car api
     router.get('/car/get-all-cars', carController.handleGetAllCars)
     router.post('/car/create-new-car', carController.handleCreateNewCar)
-    router.get('/car/delete-car', carController.handleDeleteCar)
-    router.post('/car/update-car', carController.handleUpdateCar)
+    router.delete('/car/delete-car', carController.handleDeleteCar)
+    router.put('/car/update-car', carController.handleUpdateCar)
     router.get('/car/get-one-car', carController.handleGetCarById)
     router.get('/car/get-cars-by-model', carController.handleGetCarsByModel)
 
