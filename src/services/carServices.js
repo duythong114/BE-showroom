@@ -32,7 +32,7 @@ const paginationCarList = (page, limit) => {
                 let totalPages = Math.ceil(count / limit)
 
                 let data = {
-                    totalPages: totalPages,
+                    totalCarPages: totalPages,
                     cars: rows
                 }
 
