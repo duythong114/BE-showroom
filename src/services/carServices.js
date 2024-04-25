@@ -183,25 +183,81 @@ const getCarById = (carId) => {
     })
 }
 
-const getCarsByModel = (carModel) => {
+const getBmwCar = () => {
     return new Promise(async (resolve, reject) => {
         try {
             let cars = await db.Car.findAll({
-                where: { model: carModel },
+                where: { model: "bmw" },
                 raw: true
             })
-            if (cars && !(cars = [])) {
+            if (cars.length > 0) {
                 resolve({
                     status: 200,
                     errorCode: 0,
-                    errorMessage: `Get all ${carModel} cars successfully`,
+                    errorMessage: `Get all bmw cars successfully`,
                     data: cars
                 })
             } else {
                 resolve({
                     status: 500,
                     errorCode: 3,
-                    errorMessage: `${carModel} car model not found`,
+                    errorMessage: `bmw car model not found`,
+                    data: ""
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+const getFerrariCar = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let cars = await db.Car.findAll({
+                where: { model: "ferrari" },
+                raw: true
+            })
+            if (cars.length > 0) {
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: `Get all ferrari cars successfully`,
+                    data: cars
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: `ferrari car model not found`,
+                    data: ""
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+const getLamborghiniCar = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let cars = await db.Car.findAll({
+                where: { model: "lamborghini" },
+                raw: true
+            })
+            if (cars.length > 0) {
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: `Get all lamborghini cars successfully`,
+                    data: cars
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: `lamborghini car model not found`,
                     data: ""
                 })
             }
@@ -217,5 +273,7 @@ module.exports = {
     deleteCar: deleteCar,
     updateCar: updateCar,
     getCarById: getCarById,
-    getCarsByModel: getCarsByModel,
+    getBmwCar: getBmwCar,
+    getFerrariCar: getFerrariCar,
+    getLamborghiniCar: getLamborghiniCar,
 }

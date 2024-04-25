@@ -1,4 +1,3 @@
-import { name } from 'ejs'
 import carServices from '../services/carServices'
 
 const handleGetAllCars = async (req, res) => {
@@ -159,24 +158,48 @@ const handleGetCarById = async (req, res) => {
     }
 }
 
-const handleGetCarsByModel = async (req, res) => {
+const handleGetBmwCar = async (req, res) => {
     try {
-        let carModel = req.query.carModel
+        let cars = await carServices.getBmwCar()
+        return res.status(cars.status).json({
+            errorCode: cars.errorCode,
+            errorMessage: cars.errorMessage,
+            data: cars.data
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
 
-        if (carModel) {
-            let cars = await carServices.getCarsByModel(carModel)
-            return res.status(cars.status).json({
-                errorCode: cars.errorCode,
-                errorMessage: cars.errorMessage,
-                data: cars.data
-            })
-        } else {
-            return res.status(500).json({
-                errorCode: 2,
-                errorMessage: "Missing required parameter",
-                data: ""
-            })
-        }
+const handleGetFerrariCar = async (req, res) => {
+    try {
+        let cars = await carServices.getFerrariCar()
+        return res.status(cars.status).json({
+            errorCode: cars.errorCode,
+            errorMessage: cars.errorMessage,
+            data: cars.data
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
+const handleGetLamborghiniCar = async (req, res) => {
+    try {
+        let cars = await carServices.getLamborghiniCar()
+        return res.status(cars.status).json({
+            errorCode: cars.errorCode,
+            errorMessage: cars.errorMessage,
+            data: cars.data
+        })
     } catch (error) {
         console.log(error)
         return res.status(500).json({
@@ -192,5 +215,7 @@ module.exports = {
     handleDeleteCar: handleDeleteCar,
     handleUpdateCar: handleUpdateCar,
     handleGetCarById: handleGetCarById,
-    handleGetCarsByModel: handleGetCarsByModel,
+    handleGetBmwCar: handleGetBmwCar,
+    handleGetFerrariCar: handleGetFerrariCar,
+    handleGetLamborghiniCar: handleGetLamborghiniCar,
 }

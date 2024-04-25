@@ -26,7 +26,9 @@ const apiRouter = (app) => {
     router.delete('/car/delete-car', carController.handleDeleteCar)
     router.put('/car/update-car', carController.handleUpdateCar)
     router.get('/car/get-one-car', carController.handleGetCarById)
-    router.get('/car/get-cars-by-model', carController.handleGetCarsByModel)
+    router.get('/car/get-bmw-car', carController.handleGetBmwCar)
+    router.get('/car/get-ferrari-car', carController.handleGetFerrariCar)
+    router.get('/car/get-lamborghini-car', carController.handleGetLamborghiniCar)
 
     return app.use('/api', router)
 }
