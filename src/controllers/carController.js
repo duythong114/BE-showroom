@@ -133,10 +133,10 @@ const handleUpdateCar = async (req, res) => {
 
 const handleGetCarById = async (req, res) => {
     try {
-        let id = req.query.id
+        let carId = req.query.carId
 
-        if (id) {
-            let car = await carServices.getCarById(id)
+        if (carId) {
+            let car = await carServices.getCarById(carId)
             return res.status(car.status).json({
                 errorCode: car.errorCode,
                 errorMessage: car.errorMessage,

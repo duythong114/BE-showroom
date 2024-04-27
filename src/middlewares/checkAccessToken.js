@@ -10,7 +10,6 @@ const nonSecurePaths = [
     '/user/logout-user',
     '/user/login-user',
     '/user/register',
-    '/car/get-one-car',
     '/car/get-bmw-car',
     '/car/get-ferrari-car',
     '/car/get-lamborghini-car',
