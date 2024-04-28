@@ -8,8 +8,10 @@ let handleLoginUser = async (req, res) => {
         if (email && password) {
             let response = await userServices.loginUser(email, password)
 
-            res.cookie("accessToken", response.data.accessToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
-            res.cookie("refreshToken", response.data.refreshToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
+            if (response.status === 200) {
+                res.cookie("accessToken", response.data.accessToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
+                res.cookie("refreshToken", response.data.refreshToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
+            }
 
             return res.status(response.status).json({
                 errorCode: response.errorCode,
