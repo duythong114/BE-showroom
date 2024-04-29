@@ -157,7 +157,7 @@ const handleGetBookingByUserId = async (req, res) => {
 
 const handleCancelBooking = async (req, res) => {
     try {
-        let bookingId = req.body.id
+        let bookingId = req.body.bookingId
 
         if (bookingId) {
             let response = await bookingServices.cancelBooking(bookingId)

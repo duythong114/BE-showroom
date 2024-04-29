@@ -28,6 +28,7 @@ const paginationBookingList = (page, limit) => {
 
             const { count, rows } = await db.Booking.findAndCountAll({
                 where: { status: 'processing' },
+                attributes: ['id', 'status', 'time'],
                 include: [
                     {
                         model: db.User,
@@ -177,7 +178,19 @@ const getBookingByUserId = (userId) => {
                     userId: userId,
                     status: 'processing',
                 },
-                raw: true
+                attributes: ['id', 'status', 'time'],
+                include: [
+                    {
+                        model: db.User,
+                        attributes: ['firstName', 'lastName'],
+                    },
+                    {
+                        model: db.Car,
+                        attributes: ['name'],
+                    }
+                ],
+                nest: true,
+                raw: true,
             })
             if (booking) {
                 resolve({
