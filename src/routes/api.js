@@ -3,10 +3,12 @@ import userController from '../controllers/userController';
 import checkAccessToken from '../middlewares/checkAccessToken';
 import checkAuthorization from '../middlewares/checkAuthorization';
 import carController from '../controllers/carController'
+import bookingController from '../controllers/bookingController';
 
 const router = express.Router();
 
 const apiRouter = (app) => {
+    // middlewares
     router.all('*', checkAccessToken, checkAuthorization,)
 
     // user api
@@ -29,6 +31,14 @@ const apiRouter = (app) => {
     router.get('/car/get-bmw-car', carController.handleGetBmwCar)
     router.get('/car/get-ferrari-car', carController.handleGetFerrariCar)
     router.get('/car/get-lamborghini-car', carController.handleGetLamborghiniCar)
+
+    // booking api
+    router.get('/booking/get-process-bookings', bookingController.handleGetProcessBookings)
+    router.post('/booking/create-new-booking', bookingController.handleCreateNewBooking)
+    router.delete('/booking/delete-booking', bookingController.handleDeleteBooking)
+    router.put('/booking/update-booking', bookingController.handleUpdateBooking)
+    router.get('/booking/get-one-booking', bookingController.handleGetBookingByUserId)
+    router.put('/booking/cancel-booking', bookingController.handleCancelBooking)
 
     return app.use('/api', router)
 }

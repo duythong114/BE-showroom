@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.belongsTo(models.Group)
+      User.hasMany(models.Booking)
       User.belongsToMany(models.Car, { through: 'Payment' })
     }
   };
