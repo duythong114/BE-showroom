@@ -21,6 +21,8 @@ const apiRouter = (app) => {
     router.post('/user/create-user', userController.handleCreateUser)
     router.delete('/user/delete-user', userController.handleDeleteUser)
     router.put('/user/update-user', userController.handleUpdateUser)
+    router.put('/user/update-personal-user', userController.handleUpdatePersonalUser)
+    router.put('/user/change-password', userController.handleChangePassword)
 
     // car api
     router.get('/car/get-all-cars', carController.handleGetAllCars)

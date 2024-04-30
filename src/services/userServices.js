@@ -290,15 +290,15 @@ let updateUser = (data) => {
                 })
             }
 
-            let newUser = await db.User.findOne({
+            let user = await db.User.findOne({
                 where: { id: data.id },
                 attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
                 include: { model: db.Group, attributes: ['name', 'description'] },
                 nest: true,
             })
 
-            if (newUser) {
-                let groupName = newUser?.Group?.name
+            if (user) {
+                let groupName = user?.Group?.name
                 if (groupName === 'manager') {
                     resolve({
                         status: 500,
@@ -307,14 +307,14 @@ let updateUser = (data) => {
                         data: ""
                     })
                 } else {
-                    newUser.firstName = data.firstName
-                    newUser.lastName = data.lastName
-                    newUser.address = data.address
-                    newUser.phoneNumber = data.phoneNumber
-                    newUser.gender = data.gender
-                    newUser.groupId = data.groupId
+                    user.firstName = data.firstName
+                    user.lastName = data.lastName
+                    user.address = data.address
+                    user.phoneNumber = data.phoneNumber
+                    user.gender = data.gender
+                    // user.groupId = data.groupId
 
-                    await newUser.save()
+                    await user.save()
 
                     resolve({
                         status: 200,
@@ -407,6 +407,124 @@ let refreshUser = (userId) => {
     })
 }
 
+let updatePersonalUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.id) {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: 'Missing required parameter',
+                    data: ""
+                })
+            }
+
+            let user = await db.User.findOne({
+                where: { id: data.id },
+                attributes: ['id', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+                // include: { model: db.Group, attributes: ['name', 'description'] },
+                nest: true,
+            })
+
+            if (user) {
+                user.firstName = data.firstName
+                user.lastName = data.lastName
+                user.address = data.address
+                user.phoneNumber = data.phoneNumber
+                user.gender = data.gender
+                // user.groupId = data.groupId
+
+                await user.save()
+
+                let newUser = await db.User.findOne({
+                    where: { id: data.id },
+                    attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+                    include: { model: db.Group, attributes: ['name', 'description'] },
+                    nest: true,
+                    raw: true
+                })
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: 'Update personal successfully',
+                    data: newUser,
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 4,
+                    errorMessage: 'User not found',
+                    data: ""
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+let changePassword = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.userId) {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: 'Missing required parameter',
+                    data: ""
+                })
+            }
+
+            let user = await db.User.findOne({
+                where: { id: data.userId },
+                attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+            })
+            if (user) {
+                if (data.password) {
+                    let checkPassword = bcrypt.compareSync(data?.password, user.password)
+                    if (checkPassword) {
+                        let hashPassword = await hashUserPassword(data?.newPassword)
+                        user.password = hashPassword
+
+                        await user.save()
+
+                        resolve({
+                            status: 200,
+                            errorCode: 0,
+                            errorMessage: 'Change password successfully',
+                            data: ""
+                        })
+                    } else {
+                        resolve({
+                            status: 500,
+                            errorCode: 6,
+                            errorMessage: 'Your password is incorrect',
+                            data: ""
+                        })
+                    }
+                } else {
+                    resolve({
+                        status: 500,
+                        errorCode: 5,
+                        errorMessage: 'Missing password',
+                        data: ""
+                    })
+                }
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 4,
+                    errorMessage: "User not found",
+                    data: ""
+                })
+            }
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     loginUser: loginUser,
     registerUser: registerUser,
@@ -417,5 +535,7 @@ module.exports = {
     updateUser: updateUser,
     paginationUserList: paginationUserList,
     refreshUser: refreshUser,
+    updatePersonalUser: updatePersonalUser,
+    changePassword: changePassword,
 }
 

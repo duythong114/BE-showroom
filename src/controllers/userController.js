@@ -216,7 +216,7 @@ let handleUpdateUser = async (req, res) => {
             address: req.body.address,
             phoneNumber: req.body.phoneNumber,
             gender: req.body.gender,
-            groupId: req.body.groupId
+            // groupId: req.body.groupId
         }
 
         if (data) {
@@ -305,6 +305,73 @@ let handleLogoutUser = async (req, res) => {
     }
 }
 
+let handleUpdatePersonalUser = async (req, res) => {
+    try {
+        let data = {
+            id: req.body.id,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            address: req.body.address,
+            phoneNumber: req.body.phoneNumber,
+            gender: req.body.gender,
+            // groupId: req.body.groupId
+        }
+
+        if (data) {
+            let response = await userServices.updatePersonalUser(data)
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 1,
+                errorMessage: "Missing required parameter",
+                data: ""
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
+let handleChangePassword = async (req, res) => {
+    try {
+        let data = {
+            userId: req.body.userId,
+            password: req.body.password,
+            newPassword: req.body.newPassword,
+        }
+
+        if (data) {
+            let response = await userServices.changePassword(data)
+
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 2,
+                errorMessage: "Missing required paramater",
+                data: ""
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
 module.exports = {
     handleLoginUser: handleLoginUser,
     handleRegisterUser: handleRegisterUser,
@@ -315,4 +382,6 @@ module.exports = {
     handleUpdateUser: handleUpdateUser,
     handleGetUserRefresh: handleGetUserRefresh,
     handleLogoutUser: handleLogoutUser,
+    handleUpdatePersonalUser: handleUpdatePersonalUser,
+    handleChangePassword: handleChangePassword,
 }
