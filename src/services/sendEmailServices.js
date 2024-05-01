@@ -20,8 +20,8 @@ const sendBookingEmail = async (dataEmail) => {
         html: `
             <p><b> Dear  ${dataEmail?.firstName}</b><p/>
             <p>
-            You receive this email because of booking to see the car: <b>${dataEmail?.carName}</b>
-            at the luxurycar store
+            You are receiving this email because you have scheduled a <b>${dataEmail?.carName}</b> car 
+            viewing appointment at a luxurycar store
             <p/>
             <p><b>Time: ${dataEmail?.time}</b></p>
             <p><b>Thank you</b></p>
