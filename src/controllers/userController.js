@@ -372,6 +372,34 @@ let handleChangePassword = async (req, res) => {
     }
 }
 
+let handleForgotPassword = async (req, res) => {
+    try {
+        let email = req.body.email
+
+        if (email) {
+            let response = await userServices.forgotPassword(email)
+
+            return res.status(response.status).json({
+                errorCode: response.errorCode,
+                errorMessage: response.errorMessage,
+                data: response.data
+            })
+        } else {
+            return res.status(500).json({
+                errorCode: 2,
+                errorMessage: "Missing required paramater",
+                data: ""
+            })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            errorCode: 1,
+            errorMessage: 'Error from server',
+        })
+    }
+}
+
 module.exports = {
     handleLoginUser: handleLoginUser,
     handleRegisterUser: handleRegisterUser,
@@ -384,4 +412,5 @@ module.exports = {
     handleLogoutUser: handleLogoutUser,
     handleUpdatePersonalUser: handleUpdatePersonalUser,
     handleChangePassword: handleChangePassword,
+    handleForgotPassword: handleForgotPassword,
 }

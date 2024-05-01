@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { createAccessToken, createRefreshToken } from './JWTServices'
 import hashUserPassword from './hashPasswordService';
 import getRoleByGroupId from './getRoleByGroupService'
+import { sendNewPasswordEmail } from './sendEmailServices'
 
 let checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
@@ -525,6 +526,46 @@ let changePassword = (data) => {
     })
 }
 
+let forgotPassword = (email) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { email: email },
+                attributes: ['id', 'email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
+            })
+            if (user) {
+                // create random password
+                let randomPassword = (Math.random() + 1).toString(36).substring(7);
+
+                // send email
+                await sendNewPasswordEmail(email, randomPassword)
+
+                // hash password
+                let hashPassword = await hashUserPassword(randomPassword)
+                user.password = hashPassword
+
+                await user.save()
+
+                resolve({
+                    status: 200,
+                    errorCode: 0,
+                    errorMessage: 'New password is sent to your email address',
+                    data: ""
+                })
+            } else {
+                resolve({
+                    status: 500,
+                    errorCode: 3,
+                    errorMessage: 'Email not found',
+                    data: ""
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     loginUser: loginUser,
     registerUser: registerUser,
@@ -537,5 +578,6 @@ module.exports = {
     refreshUser: refreshUser,
     updatePersonalUser: updatePersonalUser,
     changePassword: changePassword,
+    forgotPassword: forgotPassword,
 }
 

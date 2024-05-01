@@ -1,5 +1,5 @@
-import { where } from 'sequelize';
 import db from '../models/index';
+import { sendBookingEmail } from './sendEmailServices'
 
 const checkBooking = (userId) => {
     return new Promise(async (resolve, reject) => {
@@ -73,6 +73,14 @@ const createNewBooking = (data) => {
             let isBookingExist = await checkBooking(data.userId)
 
             if (!isBookingExist) {
+                let dataEmail = {
+                    time: data.time,
+                    email: data?.email,
+                    firstName: data?.firstName,
+                    carName: data?.carName
+                }
+                await sendBookingEmail(dataEmail)
+
                 await db.Booking.create({
                     status: 'processing',
                     time: data.time,
@@ -82,7 +90,7 @@ const createNewBooking = (data) => {
                 resolve({
                     status: 200,
                     errorCode: 0,
-                    errorMessage: 'Create a new booking successfully',
+                    errorMessage: 'booking successfully, check your email address',
                     data: ""
                 })
             } else {

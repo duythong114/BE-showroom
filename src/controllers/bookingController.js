@@ -33,11 +33,14 @@ const handleCreateNewBooking = async (req, res) => {
             time: req.body.time,
             carId: req.body.carId,
             userId: req.body.userId,
+            email: req.body.email,
+            firstName: req.body.firstName,
+            carName: req.body.carName,
         }
 
         if (data) {
-            let arrInput = [data.time, data.carId, data.userId]
-            let arrInputName = ['time', 'carId', 'userId']
+            let arrInput = [data.time, data.carId, data.userId, data.email, data.firstName, data.carName]
+            let arrInputName = ['time', 'carId', 'userId', 'email', 'firstName', 'carName']
             for (let i = 0; i < arrInput.length; i++) {
                 if (!arrInput[i]) {
                     return res.status(500).json({
