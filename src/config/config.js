@@ -1,10 +1,12 @@
-{
+require('dotenv').config
+
+module.exports = {
   "development": {
-    "username": "root",
+    "username": process.env.DB_USERNAME,
     "password": null,
-    "database": "jwt_nodejs",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
+    "database": process.env.DB_DATABASE_NAME,
+    "host": process.env.DB_HOST,
+    "dialect": process.env.DB_DIALECT,
     "logging": false,
     "timezone": "+07:00",
     "pool": {
