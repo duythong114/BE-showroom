@@ -9,7 +9,7 @@ var _require = require('sequelize'),
   Sequelize = _require.Sequelize;
 
 // Option 3: Passing parameters separately (other dialects)
-var sequelize = new Sequelize(process.env.DB_DATABASE_NAME, process.env.DB_USERNAME, null, {
+var sequelize = new Sequelize(process.env.DB_DATABASE_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   "dialect": process.env.DB_DIALECT,
   logging: false
