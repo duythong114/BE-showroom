@@ -95,14 +95,8 @@ let handleGetAllUsers = async (req, res) => {
                 data: paginationUsers.data
             })
         } else {
-            // let users = await userServices.getAllUsers()
-            // return res.status(users.status).json({
-            //     errorCode: users.errorCode,
-            //     errorMessage: users.errorMessage,
-            //     data: users.data
-            // })
             return res.status(500).json({
-                errorCode: 1,
+                errorCode: 2,
                 errorMessage: "Missing required parameters",
                 data: ""
             })

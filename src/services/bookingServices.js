@@ -28,6 +28,9 @@ const paginationBookingList = (page, limit) => {
 
             const { count, rows } = await db.Booking.findAndCountAll({
                 where: { status: 'processing' },
+                order: [
+                    ['id', 'ASC'],
+                ],
                 attributes: ['id', 'status', 'time'],
                 include: [
                     {

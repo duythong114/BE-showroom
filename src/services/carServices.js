@@ -23,6 +23,9 @@ const paginationCarList = (page, limit) => {
             let offSet = (page - 1) * limit
 
             const { count, rows } = await db.Car.findAndCountAll({
+                order: [
+                    ['id', 'ASC'],
+                ],
                 raw: true,
                 offset: offSet,
                 limit: limit,

@@ -344,6 +344,9 @@ let paginationUserList = (page, limit) => {
             let offSet = (page - 1) * limit
 
             const { count, rows } = await db.User.findAndCountAll({
+                order: [
+                    ['id', 'ASC'],
+                ],
                 attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
                 include: { model: db.Group, attributes: ['name', 'description'] },
                 nest: true,
