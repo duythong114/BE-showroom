@@ -1,7 +1,6 @@
 "use strict";
 
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 var _index = _interopRequireDefault(require("../models/index"));
 var _hashPasswordService = _interopRequireDefault(require("./hashPasswordService"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }

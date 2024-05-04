@@ -54,7 +54,7 @@ module.exports = function (sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     address: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
-    gender: DataTypes.BOOLEAN,
+    gender: DataTypes.INTEGER,
     groupId: DataTypes.INTEGER
   }, {
     sequelize: sequelize,

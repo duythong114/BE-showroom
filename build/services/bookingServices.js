@@ -60,6 +60,7 @@ var paginationBookingList = function paginationBookingList(page, limit) {
               where: {
                 status: 'processing'
               },
+              order: [['id', 'ASC']],
               attributes: ['id', 'status', 'time'],
               include: [{
                 model: _index["default"].User,

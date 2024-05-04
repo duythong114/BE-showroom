@@ -55,6 +55,7 @@ var paginationCarList = function paginationCarList(page, limit) {
             offSet = (page - 1) * limit;
             _context2.next = 4;
             return _index["default"].Car.findAndCountAll({
+              order: [['id', 'ASC']],
               raw: true,
               offset: offSet,
               limit: limit
@@ -329,6 +330,7 @@ var getBmwCar = function getBmwCar() {
               where: {
                 model: "bmw"
               },
+              order: [['id', 'ASC']],
               raw: true
             });
           case 3:
@@ -378,6 +380,7 @@ var getFerrariCar = function getFerrariCar() {
               where: {
                 model: "ferrari"
               },
+              order: [['id', 'ASC']],
               raw: true
             });
           case 3:
@@ -427,6 +430,7 @@ var getLamborghiniCar = function getLamborghiniCar() {
               where: {
                 model: "lamborghini"
               },
+              order: [['id', 'ASC']],
               raw: true
             });
           case 3:

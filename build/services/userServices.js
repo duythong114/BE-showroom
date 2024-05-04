@@ -570,6 +570,7 @@ var paginationUserList = function paginationUserList(page, limit) {
             offSet = (page - 1) * limit;
             _context9.next = 4;
             return _index["default"].User.findAndCountAll({
+              order: [['id', 'ASC']],
               attributes: ['id', 'email', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId'],
               include: {
                 model: _index["default"].Group,

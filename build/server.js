@@ -15,7 +15,7 @@ var app = (0, _express["default"])();
 
 // FIX CORS
 app.use((0, _cors["default"])({
-  origin: 'http://localhost:3000',
+  origin: process.env.REACT_URL,
   credentials: true
 }));
 

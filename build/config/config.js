@@ -7,6 +7,7 @@ module.exports = {
     "password": process.env.DB_PASSWORD,
     "database": process.env.DB_DATABASE_NAME,
     "host": process.env.DB_HOST,
+    "port": process.env.DB_PORT,
     "dialect": process.env.DB_DIALECT,
     "logging": false,
     "timezone": "+07:00",
@@ -14,7 +15,13 @@ module.exports = {
       "max": 5,
       "min": 0,
       "idle": 10000
-    }
+    },
+    dialectOptions: process.env.DB_SSL === 'true' ? {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    } : {}
   },
   "test": {
     "username": "root",

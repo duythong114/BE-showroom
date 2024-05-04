@@ -168,7 +168,7 @@ var handleGetAllUsers = /*#__PURE__*/function () {
           }));
         case 9:
           return _context3.abrupt("return", res.status(500).json({
-            errorCode: 1,
+            errorCode: 2,
             errorMessage: "Missing required parameters",
             data: ""
           }));

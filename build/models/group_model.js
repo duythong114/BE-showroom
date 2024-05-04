@@ -36,8 +36,7 @@ module.exports = function (sequelize, DataTypes) {
           foreignKey: 'groupId'
         });
         Group.belongsToMany(models.Role, {
-          through: 'Group_Role'
-        }, {
+          through: 'Group_Role',
           foreignKey: 'groupId'
         });
       }
