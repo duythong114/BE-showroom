@@ -191,6 +191,9 @@ const getBmwCar = () => {
         try {
             let cars = await db.Car.findAll({
                 where: { model: "bmw" },
+                order: [
+                    ['id', 'ASC'],
+                ],
                 raw: true
             })
             if (cars.length > 0) {
@@ -219,6 +222,9 @@ const getFerrariCar = () => {
         try {
             let cars = await db.Car.findAll({
                 where: { model: "ferrari" },
+                order: [
+                    ['id', 'ASC'],
+                ],
                 raw: true
             })
             if (cars.length > 0) {
@@ -247,6 +253,9 @@ const getLamborghiniCar = () => {
         try {
             let cars = await db.Car.findAll({
                 where: { model: "lamborghini" },
+                order: [
+                    ['id', 'ASC'],
+                ],
                 raw: true
             })
             if (cars.length > 0) {

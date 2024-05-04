@@ -14,7 +14,7 @@ let app = express();
 // FIX CORS
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: process.env.REACT_URL,
         credentials: true,
     })
 )
