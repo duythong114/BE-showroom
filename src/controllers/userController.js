@@ -19,8 +19,8 @@ let handleLoginUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing email or password",
                 data: ""
             })
@@ -52,7 +52,7 @@ let handleRegisterUser = async (req, res) => {
             let arrInputName = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber', 'gender', 'groupId']
             for (let i = 0; i < arrInput.length; i++) {
                 if (!arrInput[i]) {
-                    return res.status(500).json({
+                    return res.status(400).json({
                         errorCode: 3,
                         errorMessage: `Missing parameter ${arrInputName[i]}`,
                         data: ""
@@ -67,7 +67,7 @@ let handleRegisterUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -95,7 +95,7 @@ let handleGetAllUsers = async (req, res) => {
                 data: paginationUsers.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameters",
                 data: ""
@@ -123,8 +123,8 @@ let handleGetUserById = async (req, res) => {
                 data: user.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -159,8 +159,8 @@ let handleCreateUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -186,8 +186,8 @@ let handleDeleteUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -221,8 +221,8 @@ let handleUpdateUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -250,14 +250,14 @@ let handleGetUserRefresh = async (req, res) => {
                     data: response.data
                 })
             } else {
-                return res.status(500).json({
+                return res.status(401).json({
                     errorCode: 3,
                     errorMessage: 'Please login to continue',
                     data: ""
                 })
             }
         } else {
-            return res.status(500).json({
+            return res.status(401).json({
                 errorCode: 2,
                 errorMessage: 'Please login to continue',
                 data: ""
@@ -284,8 +284,8 @@ let handleLogoutUser = async (req, res) => {
                 data: ""
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(404).json({
+                errorCode: 2,
                 errorMessage: `Don't have user to logout`,
                 data: ""
             })
@@ -319,8 +319,8 @@ let handleUpdatePersonalUser = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
-                errorCode: 1,
+            return res.status(400).json({
+                errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
             })
@@ -351,7 +351,7 @@ let handleChangePassword = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required paramater",
                 data: ""
@@ -379,7 +379,7 @@ let handleForgotPassword = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required paramater",
                 data: ""

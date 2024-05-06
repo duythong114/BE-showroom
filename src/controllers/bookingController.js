@@ -12,7 +12,7 @@ const handleGetProcessBookings = async (req, res) => {
                 data: paginationBookings.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameters",
                 data: ""
@@ -43,7 +43,7 @@ const handleCreateNewBooking = async (req, res) => {
             let arrInputName = ['time', 'carId', 'userId', 'email', 'firstName', 'carName']
             for (let i = 0; i < arrInput.length; i++) {
                 if (!arrInput[i]) {
-                    return res.status(500).json({
+                    return res.status(400).json({
                         errorCode: 3,
                         errorMessage: `Missing parameter ${arrInputName[i]}`,
                         data: ""
@@ -58,7 +58,7 @@ const handleCreateNewBooking = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -85,7 +85,7 @@ const handleDeleteBooking = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -116,7 +116,7 @@ const handleUpdateBooking = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -143,7 +143,7 @@ const handleGetBookingByUserId = async (req, res) => {
                 data: booking.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -170,7 +170,7 @@ const handleCancelBooking = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""

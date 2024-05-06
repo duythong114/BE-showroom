@@ -45,7 +45,7 @@ const checkAccessToken = async (req, res, next) => {
                 if (newAccessToken && newRefreshToken) {
                     res.cookie("accessToken", newAccessToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
                     res.cookie("refreshToken", newRefreshToken, { httpOnly: true, maxAge: process.env.COOKIE_EXPIRE_TIME });
-                    return res.status(401).json({
+                    return res.status(405).json({
                         errorCode: 3,
                         errorMessage: "reload to apply new access token",
                         data: ""
@@ -57,7 +57,7 @@ const checkAccessToken = async (req, res, next) => {
                 if (cookies && cookies.accessToken && cookies.refreshToken) {
                     res.clearCookie("accessToken");
                     res.clearCookie("refreshToken");
-                    return res.status(404).json({
+                    return res.status(401).json({
                         errorCode: 4,
                         errorMessage: "refreshToken is expired, login required",
                         data: ""
@@ -68,7 +68,7 @@ const checkAccessToken = async (req, res, next) => {
     }
     // don't have cookie or access token or refresh token
     else {
-        return res.status(400).json({
+        return res.status(401).json({
             errorCode: 1,
             errorMessage: 'PLease login to continue',
             data: ''

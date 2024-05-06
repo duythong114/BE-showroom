@@ -40,8 +40,8 @@ var handleLoginUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 11:
-          return _context.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing email or password",
             data: ""
           }));
@@ -99,7 +99,7 @@ var handleRegisterUser = /*#__PURE__*/function () {
             _context2.next = 9;
             break;
           }
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 3,
             errorMessage: "Missing parameter ".concat(arrInputName[i]),
             data: ""
@@ -119,7 +119,7 @@ var handleRegisterUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 18:
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -167,7 +167,7 @@ var handleGetAllUsers = /*#__PURE__*/function () {
             data: paginationUsers.data
           }));
         case 9:
-          return _context3.abrupt("return", res.status(500).json({
+          return _context3.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameters",
             data: ""
@@ -216,8 +216,8 @@ var handleGetUserById = /*#__PURE__*/function () {
             data: user.data
           }));
         case 9:
-          return _context4.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context4.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
           }));
@@ -273,8 +273,8 @@ var handleCreateUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context5.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context5.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
           }));
@@ -321,8 +321,8 @@ var handleDeleteUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context6.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context6.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
           }));
@@ -377,8 +377,8 @@ var handleUpdateUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context7.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context7.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
           }));
@@ -429,7 +429,7 @@ var handleGetUserRefresh = /*#__PURE__*/function () {
             data: response.data
           }));
         case 10:
-          return _context8.abrupt("return", res.status(500).json({
+          return _context8.abrupt("return", res.status(401).json({
             errorCode: 3,
             errorMessage: 'Please login to continue',
             data: ""
@@ -438,7 +438,7 @@ var handleGetUserRefresh = /*#__PURE__*/function () {
           _context8.next = 14;
           break;
         case 13:
-          return _context8.abrupt("return", res.status(500).json({
+          return _context8.abrupt("return", res.status(401).json({
             errorCode: 2,
             errorMessage: 'Please login to continue',
             data: ""
@@ -484,8 +484,8 @@ var handleLogoutUser = /*#__PURE__*/function () {
             data: ""
           }));
         case 8:
-          return _context9.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context9.abrupt("return", res.status(404).json({
+            errorCode: 2,
             errorMessage: "Don't have user to logout",
             data: ""
           }));
@@ -540,8 +540,8 @@ var handleUpdatePersonalUser = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context10.abrupt("return", res.status(500).json({
-            errorCode: 1,
+          return _context10.abrupt("return", res.status(400).json({
+            errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
           }));
@@ -592,7 +592,7 @@ var handleChangePassword = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context11.abrupt("return", res.status(500).json({
+          return _context11.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required paramater",
             data: ""
@@ -640,7 +640,7 @@ var handleForgotPassword = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context12.abrupt("return", res.status(500).json({
+          return _context12.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required paramater",
             data: ""

@@ -73,7 +73,7 @@ var checkAccessToken = /*#__PURE__*/function () {
             httpOnly: true,
             maxAge: process.env.COOKIE_EXPIRE_TIME
           });
-          return _context.abrupt("return", res.status(401).json({
+          return _context.abrupt("return", res.status(405).json({
             errorCode: 3,
             errorMessage: "reload to apply new access token",
             data: ""
@@ -89,7 +89,7 @@ var checkAccessToken = /*#__PURE__*/function () {
           }
           res.clearCookie("accessToken");
           res.clearCookie("refreshToken");
-          return _context.abrupt("return", res.status(404).json({
+          return _context.abrupt("return", res.status(401).json({
             errorCode: 4,
             errorMessage: "refreshToken is expired, login required",
             data: ""
@@ -98,7 +98,7 @@ var checkAccessToken = /*#__PURE__*/function () {
           _context.next = 34;
           break;
         case 33:
-          return _context.abrupt("return", res.status(400).json({
+          return _context.abrupt("return", res.status(401).json({
             errorCode: 1,
             errorMessage: 'PLease login to continue',
             data: ''

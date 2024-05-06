@@ -28,7 +28,7 @@ var handleGetAllCars = /*#__PURE__*/function () {
             data: paginationCars.data
           }));
         case 9:
-          return _context.abrupt("return", res.status(500).json({
+          return _context.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameters",
             data: ""
@@ -83,7 +83,7 @@ var handleCreateNewCar = /*#__PURE__*/function () {
             _context2.next = 9;
             break;
           }
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 3,
             errorMessage: "Missing parameter ".concat(arrInputName[i]),
             data: ""
@@ -103,7 +103,7 @@ var handleCreateNewCar = /*#__PURE__*/function () {
             data: response.data
           }));
         case 18:
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -151,7 +151,7 @@ var handleDeleteCar = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context3.abrupt("return", res.status(500).json({
+          return _context3.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -205,7 +205,7 @@ var handleUpdateCar = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context4.abrupt("return", res.status(500).json({
+          return _context4.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -253,7 +253,7 @@ var handleGetCarById = /*#__PURE__*/function () {
             data: car.data
           }));
         case 9:
-          return _context5.abrupt("return", res.status(500).json({
+          return _context5.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""

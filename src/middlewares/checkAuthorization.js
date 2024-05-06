@@ -19,21 +19,21 @@ const checkAuthorization = (req, res, next) => {
             if (checkRoles) {
                 next()
             } else {
-                return res.status(402).json({
+                return res.status(403).json({
                     errorCode: 3,
                     errorMessage: `The user don't have permission`,
                     data: ''
                 })
             }
         } else {
-            return res.status(400).json({
+            return res.status(401).json({
                 errorCode: 2,
                 errorMessage: 'PLease login to continue',
                 data: ''
             })
         }
     } else {
-        return res.status(400).json({
+        return res.status(401).json({
             errorCode: 1,
             errorMessage: 'PLease login to continue',
             data: ''

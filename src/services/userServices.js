@@ -78,7 +78,7 @@ let loginUser = (email, password) => {
                         })
                     } else {
                         resolve({
-                            status: 500,
+                            status: 400,
                             errorCode: 3,
                             errorMessage: 'Your password is incorrect',
                             data: ""
@@ -87,7 +87,7 @@ let loginUser = (email, password) => {
                 }
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 2,
                     errorMessage: "User not found",
                     data: ""
@@ -124,7 +124,7 @@ let registerUser = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 4,
                     errorMessage: 'Your email is already existed, Pls try another email',
                     data: ""
@@ -174,8 +174,8 @@ let getUserById = (userId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
-                    errorCode: 2,
+                    status: 404,
+                    errorCode: 3,
                     errorMessage: 'User not found',
                     data: ""
                 })
@@ -194,8 +194,8 @@ let createUser = (data) => {
             for (let i = 0; i < arrInput.length; i++) {
                 if (!arrInput[i]) {
                     resolve({
-                        status: 500,
-                        errorCode: 2,
+                        status: 400,
+                        errorCode: 3,
                         errorMessage: `Missing parameter ${arrInputName[i]}`,
                         data: ""
                     })
@@ -223,8 +223,8 @@ let createUser = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
-                    errorCode: 3,
+                    status: 400,
+                    errorCode: 4,
                     errorMessage: 'Your email is already existed, Pls try another email',
                     data: ""
                 })
@@ -248,8 +248,8 @@ let deleteUser = (userId) => {
                 let groupName = user?.Group?.name
                 if (groupName === 'manager') {
                     resolve({
-                        status: 500,
-                        errorCode: 3,
+                        status: 400,
+                        errorCode: 4,
                         errorMessage: `Can't delete manager user`,
                         data: ""
                     })
@@ -265,8 +265,8 @@ let deleteUser = (userId) => {
                 }
             } else {
                 resolve({
-                    status: 500,
-                    errorCode: 2,
+                    status: 404,
+                    errorCode: 3,
                     errorMessage: 'User not found',
                     data: ""
                 })
@@ -284,7 +284,7 @@ let updateUser = (data) => {
         try {
             if (!data.id) {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
@@ -302,7 +302,7 @@ let updateUser = (data) => {
                 let groupName = user?.Group?.name
                 if (groupName === 'manager') {
                     resolve({
-                        status: 500,
+                        status: 400,
                         errorCode: 5,
                         errorMessage: `Can't update manager user`,
                         data: ""
@@ -326,7 +326,7 @@ let updateUser = (data) => {
                 }
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: 'User not found',
                     data: ""
@@ -399,7 +399,7 @@ let refreshUser = (userId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: 'User not found',
                     data: ""
@@ -416,7 +416,7 @@ let updatePersonalUser = (data) => {
         try {
             if (!data.id) {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
@@ -455,7 +455,7 @@ let updatePersonalUser = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: 'User not found',
                     data: ""
@@ -472,7 +472,7 @@ let changePassword = (data) => {
         try {
             if (!data.userId) {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
@@ -500,7 +500,7 @@ let changePassword = (data) => {
                         })
                     } else {
                         resolve({
-                            status: 500,
+                            status: 400,
                             errorCode: 6,
                             errorMessage: 'Your password is incorrect',
                             data: ""
@@ -508,7 +508,7 @@ let changePassword = (data) => {
                     }
                 } else {
                     resolve({
-                        status: 500,
+                        status: 400,
                         errorCode: 5,
                         errorMessage: 'Missing password',
                         data: ""
@@ -516,7 +516,7 @@ let changePassword = (data) => {
                 }
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: "User not found",
                     data: ""
@@ -557,7 +557,7 @@ let forgotPassword = (email) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: 'Email not found',
                     data: ""

@@ -98,7 +98,7 @@ const createNewBooking = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 4,
                     errorMessage: 'Your booking already exists in booking page',
                     data: ""
@@ -127,7 +127,7 @@ const deleteBooking = (bookingId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: 'This booking not found',
                     data: ""
@@ -144,7 +144,7 @@ const updateBooking = (data) => {
         try {
             if (!data.id) {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
@@ -169,7 +169,7 @@ const updateBooking = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: 'This booking not found',
                     data: ""
@@ -212,7 +212,7 @@ const getBookingByUserId = (userId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 200,
                     errorCode: 3,
                     errorMessage: 'Booking not found',
                     data: ""
@@ -244,7 +244,7 @@ const cancelBooking = (bookingId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: 'This booking not found',
                     data: ""

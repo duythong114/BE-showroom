@@ -12,7 +12,7 @@ const handleGetAllCars = async (req, res) => {
                 data: paginationCars.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameters",
                 data: ""
@@ -41,7 +41,7 @@ const handleCreateNewCar = async (req, res) => {
             let arrInputName = ['name', 'model', 'description', 'image']
             for (let i = 0; i < arrInput.length; i++) {
                 if (!arrInput[i]) {
-                    return res.status(500).json({
+                    return res.status(400).json({
                         errorCode: 3,
                         errorMessage: `Missing parameter ${arrInputName[i]}`,
                         data: ""
@@ -56,7 +56,7 @@ const handleCreateNewCar = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -83,7 +83,7 @@ const handleDeleteCar = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -116,7 +116,7 @@ const handleUpdateCar = async (req, res) => {
                 data: response.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""
@@ -143,7 +143,7 @@ const handleGetCarById = async (req, res) => {
                 data: car.data
             })
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 errorCode: 2,
                 errorMessage: "Missing required parameter",
                 data: ""

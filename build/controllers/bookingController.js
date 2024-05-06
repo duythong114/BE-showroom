@@ -28,7 +28,7 @@ var handleGetProcessBookings = /*#__PURE__*/function () {
             data: paginationBookings.data
           }));
         case 9:
-          return _context.abrupt("return", res.status(500).json({
+          return _context.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameters",
             data: ""
@@ -85,7 +85,7 @@ var handleCreateNewBooking = /*#__PURE__*/function () {
             _context2.next = 9;
             break;
           }
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 3,
             errorMessage: "Missing parameter ".concat(arrInputName[i]),
             data: ""
@@ -105,7 +105,7 @@ var handleCreateNewBooking = /*#__PURE__*/function () {
             data: response.data
           }));
         case 18:
-          return _context2.abrupt("return", res.status(500).json({
+          return _context2.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -153,7 +153,7 @@ var handleDeleteBooking = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context3.abrupt("return", res.status(500).json({
+          return _context3.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -205,7 +205,7 @@ var handleUpdateBooking = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context4.abrupt("return", res.status(500).json({
+          return _context4.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -253,7 +253,7 @@ var handleGetBookingByUserId = /*#__PURE__*/function () {
             data: booking.data
           }));
         case 9:
-          return _context5.abrupt("return", res.status(500).json({
+          return _context5.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""
@@ -301,7 +301,7 @@ var handleCancelBooking = /*#__PURE__*/function () {
             data: response.data
           }));
         case 9:
-          return _context6.abrupt("return", res.status(500).json({
+          return _context6.abrupt("return", res.status(400).json({
             errorCode: 2,
             errorMessage: "Missing required parameter",
             data: ""

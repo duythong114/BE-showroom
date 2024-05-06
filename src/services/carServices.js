@@ -73,7 +73,7 @@ const createNewCar = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 4,
                     errorMessage: 'This carName is already existed',
                     data: ""
@@ -102,7 +102,7 @@ const deleteCar = (carId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: 'This car not found',
                     data: ""
@@ -119,7 +119,7 @@ const updateCar = (data) => {
         try {
             if (!data.id) {
                 resolve({
-                    status: 500,
+                    status: 400,
                     errorCode: 3,
                     errorMessage: 'Missing required parameter',
                     data: ""
@@ -146,7 +146,7 @@ const updateCar = (data) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 4,
                     errorMessage: 'This car not found',
                     data: ""
@@ -174,7 +174,7 @@ const getCarById = (carId) => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: 'Car not found',
                     data: ""
@@ -205,7 +205,7 @@ const getBmwCar = () => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: `bmw car model not found`,
                     data: ""
@@ -236,7 +236,7 @@ const getFerrariCar = () => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: `ferrari car model not found`,
                     data: ""
@@ -267,7 +267,7 @@ const getLamborghiniCar = () => {
                 })
             } else {
                 resolve({
-                    status: 500,
+                    status: 404,
                     errorCode: 3,
                     errorMessage: `lamborghini car model not found`,
                     data: ""

@@ -151,7 +151,7 @@ var createNewBooking = function createNewBooking(data) {
             break;
           case 13:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 4,
               errorMessage: 'Your booking already exists in booking page',
               data: ""
@@ -200,7 +200,7 @@ var deleteBooking = function deleteBooking(bookingId) {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: 'This booking not found',
                 data: ""
@@ -233,7 +233,7 @@ var updateBooking = function updateBooking(data) {
             _context5.prev = 0;
             if (!data.id) {
               resolve({
-                status: 500,
+                status: 400,
                 errorCode: 3,
                 errorMessage: 'Missing required parameter',
                 data: ""
@@ -266,7 +266,7 @@ var updateBooking = function updateBooking(data) {
             break;
           case 13:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 4,
               errorMessage: 'This booking not found',
               data: ""
@@ -325,7 +325,7 @@ var getBookingByUserId = function getBookingByUserId(userId) {
               });
             } else {
               resolve({
-                status: 500,
+                status: 200,
                 errorCode: 3,
                 errorMessage: 'Booking not found',
                 data: ""
@@ -382,7 +382,7 @@ var cancelBooking = function cancelBooking(bookingId) {
             break;
           case 11:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 3,
               errorMessage: 'This booking not found',
               data: ""

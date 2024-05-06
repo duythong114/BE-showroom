@@ -128,7 +128,7 @@ var createNewCar = function createNewCar(data) {
             break;
           case 10:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 4,
               errorMessage: 'This carName is already existed',
               data: ""
@@ -177,7 +177,7 @@ var deleteCar = function deleteCar(carId) {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: 'This car not found',
                 data: ""
@@ -210,7 +210,7 @@ var updateCar = function updateCar(data) {
             _context5.prev = 0;
             if (!data.id) {
               resolve({
-                status: 500,
+                status: 400,
                 errorCode: 3,
                 errorMessage: 'Missing required parameter',
                 data: ""
@@ -245,7 +245,7 @@ var updateCar = function updateCar(data) {
             break;
           case 15:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 4,
               errorMessage: 'This car not found',
               data: ""
@@ -294,7 +294,7 @@ var getCarById = function getCarById(carId) {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: 'Car not found',
                 data: ""
@@ -344,7 +344,7 @@ var getBmwCar = function getBmwCar() {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: "bmw car model not found",
                 data: ""
@@ -394,7 +394,7 @@ var getFerrariCar = function getFerrariCar() {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: "ferrari car model not found",
                 data: ""
@@ -444,7 +444,7 @@ var getLamborghiniCar = function getLamborghiniCar() {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 3,
                 errorMessage: "lamborghini car model not found",
                 data: ""

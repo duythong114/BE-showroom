@@ -135,7 +135,7 @@ var loginUser = function loginUser(email, password) {
             break;
           case 32:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 3,
               errorMessage: 'Your password is incorrect',
               data: ""
@@ -145,7 +145,7 @@ var loginUser = function loginUser(email, password) {
             break;
           case 35:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 2,
               errorMessage: "User not found",
               data: ""
@@ -210,7 +210,7 @@ var registerUser = function registerUser(data) {
             break;
           case 13:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 4,
               errorMessage: 'Your email is already existed, Pls try another email',
               data: ""
@@ -303,8 +303,8 @@ var getUserById = function getUserById(userId) {
               });
             } else {
               resolve({
-                status: 500,
-                errorCode: 2,
+                status: 404,
+                errorCode: 3,
                 errorMessage: 'User not found',
                 data: ""
               });
@@ -339,8 +339,8 @@ var createUser = function createUser(data) {
             for (i = 0; i < arrInput.length; i++) {
               if (!arrInput[i]) {
                 resolve({
-                  status: 500,
-                  errorCode: 2,
+                  status: 400,
+                  errorCode: 3,
                   errorMessage: "Missing parameter ".concat(arrInputName[i]),
                   data: ""
                 });
@@ -380,8 +380,8 @@ var createUser = function createUser(data) {
             break;
           case 16:
             resolve({
-              status: 500,
-              errorCode: 3,
+              status: 400,
+              errorCode: 4,
               errorMessage: 'Your email is already existed, Pls try another email',
               data: ""
             });
@@ -429,8 +429,8 @@ var deleteUser = function deleteUser(userId) {
               groupName = user === null || user === void 0 || (_user$Group = user.Group) === null || _user$Group === void 0 ? void 0 : _user$Group.name;
               if (groupName === 'manager') {
                 resolve({
-                  status: 500,
-                  errorCode: 3,
+                  status: 400,
+                  errorCode: 4,
                   errorMessage: "Can't delete manager user",
                   data: ""
                 });
@@ -445,8 +445,8 @@ var deleteUser = function deleteUser(userId) {
               }
             } else {
               resolve({
-                status: 500,
-                errorCode: 2,
+                status: 404,
+                errorCode: 3,
                 errorMessage: 'User not found',
                 data: ""
               });
@@ -478,7 +478,7 @@ var updateUser = function updateUser(data) {
             _context8.prev = 0;
             if (!data.id) {
               resolve({
-                status: 500,
+                status: 400,
                 errorCode: 3,
                 errorMessage: 'Missing required parameter',
                 data: ""
@@ -508,7 +508,7 @@ var updateUser = function updateUser(data) {
               break;
             }
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 5,
               errorMessage: "Can't update manager user",
               data: ""
@@ -536,7 +536,7 @@ var updateUser = function updateUser(data) {
             break;
           case 21:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 4,
               errorMessage: 'User not found',
               data: ""
@@ -650,7 +650,7 @@ var refreshUser = function refreshUser(userId) {
               });
             } else {
               resolve({
-                status: 500,
+                status: 404,
                 errorCode: 4,
                 errorMessage: 'User not found',
                 data: ""
@@ -683,7 +683,7 @@ var updatePersonalUser = function updatePersonalUser(data) {
             _context11.prev = 0;
             if (!data.id) {
               resolve({
-                status: 500,
+                status: 400,
                 errorCode: 3,
                 errorMessage: 'Missing required parameter',
                 data: ""
@@ -738,7 +738,7 @@ var updatePersonalUser = function updatePersonalUser(data) {
             break;
           case 19:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 4,
               errorMessage: 'User not found',
               data: ""
@@ -771,7 +771,7 @@ var changePassword = function changePassword(data) {
             _context12.prev = 0;
             if (!data.userId) {
               resolve({
-                status: 500,
+                status: 400,
                 errorCode: 3,
                 errorMessage: 'Missing required parameter',
                 data: ""
@@ -817,7 +817,7 @@ var changePassword = function changePassword(data) {
             break;
           case 18:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 6,
               errorMessage: 'Your password is incorrect',
               data: ""
@@ -827,7 +827,7 @@ var changePassword = function changePassword(data) {
             break;
           case 21:
             resolve({
-              status: 500,
+              status: 400,
               errorCode: 5,
               errorMessage: 'Missing password',
               data: ""
@@ -837,7 +837,7 @@ var changePassword = function changePassword(data) {
             break;
           case 24:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 4,
               errorMessage: "User not found",
               data: ""
@@ -904,7 +904,7 @@ var forgotPassword = function forgotPassword(email) {
             break;
           case 17:
             resolve({
-              status: 500,
+              status: 404,
               errorCode: 3,
               errorMessage: 'Email not found',
               data: ""
